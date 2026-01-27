@@ -106,7 +106,8 @@ Lab2/
    ├─ DiagramaClases.png
    ├─ DiagramaEstadosReserva.png
    ├─ DiagramaSecuencia.png
-   └─ ResultadoEsperadoLab2.png
+   └─ ResultadoOpen.png
+   └─ ResultadoCheck.png
 ```
 
 ### 📝 Contenido de las carpetas
