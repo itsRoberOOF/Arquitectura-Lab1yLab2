@@ -71,3 +71,53 @@ curl -X POST "http://127.0.0.1:8000/reservas?estudiante_id=e1&tutor_id=t1&fecha_
 ```
 
 ### 🎯 Resultado esperado
+
+## Laboratorio 2
+El Laboratorio 2 se enfoca en la **validación formal del modelo** mediante **USE + OCL**, además del desarrollo de diagramas UML como parte de los entregables del laboratorio.
+
+### 📁 Estructura
+```
+Lab2/
+├─ tutorias.use
+├─ constraints.ocl
+├─ demo.cmd
+│
+└─ media/
+   ├─ DiagramaCasosDeUso.png
+   ├─ DiagramaClases.png
+   ├─ DiagramaEstadosReserva.png
+   ├─ DiagramaSecuencia.png
+   └─ ResultadoEsperadoLab2.png
+```
+
+### 📝 Contenido de las carpetas
+
+- **tutorias.use**: contiene la definición del **modelo** del sistema en USE.
+- **constraints.ocl**: contiene las **restricciones OCL** utilizadas para validar invariantes, precondiciones y postcondiciones.
+- **demo.cmd**: script para generar el **estado de ejecución** del modelo.
+- **media/**: contiene los **diagramas UML del laboratorio** y una captura con el **resultado esperado**.
+
+### ▶️ Instrucciones de ejecución
+
+> Para que el modelo funcione correctamente, el contenido de `constraints.ocl` debe copiarse al final del archivo `tutorias.use`, dentro de la sección `constraints`.
+
+Pasos:
+
+1. Abrir la aplicación **USE**
+2. Cargar el archivo:
+```
+tutorias.use
+```
+3. Ejecutar el script:
+```
+open demo.cmd
+```
+4. Ejecutar las validaciones:
+```
+check
+```
+ℹ️ Las constraints se cargan automaticamente
+
+### 🎯 Resultado esperado
+
+- Las restricciones definidas en **OCL** deben validarse correctamente, lo que lanzará el siguiente error:
