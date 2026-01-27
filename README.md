@@ -27,11 +27,12 @@ Lab1/
 │  │  └─ test_reservas.py
 │  └─ requirements.txt
 │
-└─ diagramas/
+└─ media/
    ├─ DiagramaCajasPrincipales.png
    └─ DiagramaContexto.png
+   └─ ResultadoEsperadoLab1.png
 ```
-### Contenido de las carpetas
+### 📝 Contenido de las carpetas
 
 - **app/**: contiene la implementación del sistema organizada en **capas**:
   - **domain/**: modelos y errores del negocio, junto con las reglas asociadas.
@@ -41,4 +42,32 @@ Lab1/
 
 - **tests/**: contiene **pruebas básicas con pytest**, enfocadas en validar las reglas de negocio.
 
-- **diagramas/**: contiene los diagramas del laboratorio, incluyendo el **diagrama de contexto** y el **diagrama de cajas principales**.
+- **media/**: contiene los diagramas del laboratorio, incluyendo el **diagrama de contexto** y el **diagrama de cajas principales**, además de una captura con el **resultado esperado**
+
+### ▶️ Instrucciones de ejecución
+
+Desde la carpeta `Lab1/app_tutorias/`, instalar dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+Ejecutar las pruebas (opción recomendada):
+
+```bash
+PYTHONPATH=. pytest -q
+```
+
+Levantar el servidor FastAPI:
+
+```bash
+PYTHONPATH=. uvicorn app.api.main:app --reload
+```
+
+Probar el endpoint de creación de reservas:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/reservas?estudiante_id=e1&tutor_id=t1&fecha_hora=2026-01-25T10:30:00"
+```
+
+### 🎯 Resultado esperado
