@@ -1,0 +1,57 @@
+constraints
+
+-- 3 invariantes
+
+-- Inv #1 Estado valido de reserva
+
+context Reserva
+  inv EstadoValido:
+    Set{ EstadoReserva::CREADA,
+         EstadoReserva::CONFIRMADA,
+         EstadoReserva::CANCELADA,
+         EstadoReserva::EXPIRADA }->includes(self.estado)
+
+-- Inv #2 Cardinalidad logica (una reserva debe tener un tutor y un estudiante)
+
+context Reserva
+  inv TieneTutorYEstudiante:
+    not self.tutor.oclIsUndefined() and not self.estudiante.oclIsUndefined()
+
+-- Inv #3 Unicidad (un tutor no puede tener 2 reservas a la misma fechaHora)
+
+context Tutor
+  inv NoDobleReservaActivaMismoHorario:
+    self.reservas
+      ->select(r | r.estado <> EstadoReserva::CANCELADA and r.estado <> EstadoReserva::EXPIRADA)
+      ->isUnique(r | r.fechaHora)
+
+-- Precondiciones (crear/cancelar)
+
+-- Pre #1 (crear) - debe existir disponibilidad libre y nodebe violar Unicidad
+
+context ReservaService::crearReserva(estudiante : Estudiante, tutor : Tutor, fechaHora : String) : Reserva
+  pre PuedeCrearReserva:
+    tutor.disponibilidades->exists(d | 
+      d.fechaHora = fechaHora and d.estado = EstadoDisponibilidad::LIBRE
+    )
+    and
+    tutor.reservas
+      ->select(r | r.estado <> EstadoReserva::CANCELADA and r.estado <> EstadoReserva::EXPIRADA)
+      ->forAll(r | r.fechaHora <> fechaHora)
+
+-- Pre #2 (cancelar) - solo se puede cancelar una reserva activa
+
+context ReservaService::cancelarReserva(reserva : Reserva)
+  pre PuedeCancelar:
+    reserva.estado = EstadoReserva::CREADA or reserva.estado = EstadoReserva::CONFIRMADA
+
+-- Postcondiciones
+
+-- Post #1 - si creas una reserva, queda en creada y ligada a un tutor/estudiante
+
+context ReservaService::crearReserva(estudiante : Estudiante, tutor : Tutor, fechaHora : String) : Reserva
+  post ReservaQuedaCreada:
+    result.estado = EstadoReserva::CREADA and
+    result.fechaHora = fechaHora and
+    result.tutor = tutor and
+    result.estudiante = estudiante
