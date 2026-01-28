@@ -1,0 +1,11 @@
+model Cars
+
+class Car
+attributes
+    mileage: Integer
+end
+
+constraints
+    context Car
+    inv MileageNotNegative: self.mileage >= 0
+
