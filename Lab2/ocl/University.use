@@ -1,0 +1,36 @@
+model University
+
+class Student
+attributes
+  id : Integer
+  name : String
+  email : String
+end
+
+class Course
+attributes
+  code : String
+  title : String
+  credits : Integer
+end
+
+associationclass Enrollment
+between
+  Student[*] role student
+  Course[*] role course
+attributes
+  grade : Integer
+end
+
+constraints
+  context Student
+    inv IdPositive: self.id > 0
+
+  context Student
+    inv UniqueEmail: Student.allInstances()->isUnique(s | s.email)
+
+  context Course
+    inv CreditsPositive: self.credits > 0
+
+  context Enrollment
+    inv GradeRange: self.grade >= 0 and self.grade <= 100
