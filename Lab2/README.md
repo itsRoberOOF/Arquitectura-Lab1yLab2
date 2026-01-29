@@ -28,6 +28,7 @@ Código
     │
     ├── evidencias/
     │   ├── Cars-Open-Check-Consultas.png
+    │   ├── Reservas-Consultas.png
     │   ├── Reservas-Correccion.png
     │   ├── Reservas-Open-Check.png
     │   ├── TestsPython.png
@@ -166,6 +167,7 @@ Antes de iniciar, abre USE desde la carpeta donde lo tengas instalado.
 **Consultas opcionales:**
 
     ? Car.allInstances()->size()
+    ? Car.allInstances()->collect(c | c.mileage)
     ? Car.allInstances()->select(c | c.mileage < 0)
     ? Car.allInstances()->forAll(c | c.mileage >= 0)
 
@@ -215,8 +217,10 @@ Antes de iniciar, abre USE desde la carpeta donde lo tengas instalado.
 **Consultas opcionales:**
 
     ? t1.reservas->size()
+    ? t1.disponibilidades->exists(d | d.fechaHora = '2026-01-20T10:00' and d.estado = EstadoDisponibilidad::LIBRE)
     ? t1.reservas->select(r | r.estado = EstadoReserva::CONFIRMADA)
     ? t1.disponibilidades->select(d | d.estado = EstadoDisponibilidad::LIBRE)
+    ? Reserva.allInstances()->collect(r | r.fechaHora)
 
 ---
 
