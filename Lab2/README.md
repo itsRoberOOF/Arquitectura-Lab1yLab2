@@ -72,7 +72,7 @@ Uso\
 
 ---
 
-**evidences/**
+**evidencias/**
 
 Capturas de **ejecución en USE** y **pruebas Python**, incluyendo: -
 Apertura de modelos (`open`) - Validaciones (`check`) - Correcciones de
@@ -80,7 +80,7 @@ violaciones - Evidencia de pruebas automatizadas
 
 ---
 
-**ocl/scripts/**
+**ocl/**
 
 Archivos `.use` con los **modelos UML textuales y restricciones OCL**:
 
@@ -89,6 +89,17 @@ Archivos `.use` con los **modelos UML textuales y restricciones OCL**:
 - **Reservas.use** → modelo simplificado del sistema\
 - **Tutorias.use** → modelo completo con invariantes, precondiciones y
   postcondiciones
+
+---
+
+**ocl/scripts**
+
+Archivos `.cmd` con los que **probar los modelos OCL**:
+
+- **Cars.cmd** → modelo de Cars.use
+- **University.cmd** → modelo de University.use
+- **Reservas.cmd** → modelo de Reservas.use
+- **Tutorias.cmd** → modelo de Tutorias.use
 
 ---
 
@@ -249,7 +260,7 @@ Ejecutar pruebas:
 
 - Validaciones OCL detectadas y corregidas
 - Reglas de negocio implementadas en Python
-- **5 pruebas automatizadas pasando correctamente**
+- **5 pruebas automatizadas pasando correctamente**\
   ℹ️ **Nota:** En la carpeta de evidencias se encuentran capturas de pantalla que muestra el resultado de cada operación/comando de USE y de las pruebas unitarias de Python.
 
 ---
