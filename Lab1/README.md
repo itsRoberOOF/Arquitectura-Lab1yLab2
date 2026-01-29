@@ -2,7 +2,7 @@
 
 Este repositorio contiene el desarrollo de dos laboratorios centrados en un sistema de reservas de tutorías, combinando modelado UML, validación con USE + OCL y una implementación funcional en Python + FastAPI bajo una arquitectura en capas.{
 
-- Estudiante: Roberto Morán
+- **Estudiante:** Roberto Morán
 
 ## 🛠️ Requisitos
 
@@ -89,7 +89,11 @@ Invoke-WebRequest `
   <img width="620" height="118" alt="ResultadoPruebas" src="https://github.com/user-attachments/assets/a733afb6-ec09-4bd0-b43e-f377de47f291" />
 
 - Servidor levantado **correctamente** con uvicorn.
-  <img width="1120" height="201" alt="ResultadoServer" src="https://github.com/user-attachments/assets/5a2e1d05-39f1-4ff1-a6ee-d5c86d4a0f26" />
+  <img width="1014" height="104" alt="ResultadoServer" src="https://github.com/user-attachments/assets/ccc0d30b-ca17-4df1-8d35-47be04e7e5b4" />
 
 - Validación de la regla que **impide crear reservas en fechas pasadas** al hacer un request.
   <img width="633" height="48" alt="ResultadoRequest" src="https://github.com/user-attachments/assets/2fd62563-290b-4530-ab7a-fcaf417ccd41" />
+
+- HTTP 400 (Bad Request) que sucede luego de tratar de crear una reserva pasada y **el servidor la rechace**
+  <img width="933" height="23" alt="ResultadoPeticion" src="https://github.com/user-attachments/assets/ed277bc0-6800-4ee7-8528-3dffb2342c18" />
+
