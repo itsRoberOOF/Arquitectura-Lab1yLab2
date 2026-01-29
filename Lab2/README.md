@@ -2,7 +2,7 @@
 
 Este repositorio contiene el desarrollo de dos laboratorios centrados en un sistema de reservas de tutorías, combinando modelado UML, validación con USE + OCL y una implementación funcional en Python + FastAPI bajo una arquitectura en capas.{
 
-- Estudiante: Roberto Morán
+- **Estudiante:** Roberto Morán
 
 ## 🛠️ Requisitos
 
