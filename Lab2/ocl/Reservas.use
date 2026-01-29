@@ -1,0 +1,63 @@
+model Reservas
+-- =========================
+-- ENUMS
+-- =========================
+enum EstadoReserva { CREADA, CANCELADA, CONFIRMADA, EXPIRADA }
+enum EstadoDisponibilidad { LIBRE, OCUPADA }
+-- =========================
+-- CLASES
+-- =========================
+class Tutor
+ attributes
+ nombre : String
+end
+class Estudiante
+ attributes
+ nombre : String
+end
+class Reserva
+ attributes
+ fechaHora : String
+ estado : EstadoReserva
+end
+class Disponibilidad
+ attributes
+ fechaHora : String
+ estado : EstadoDisponibilidad
+end
+-- =========================
+-- ASOCIACIONES (con roles)
+-- =========================
+association TutorReserva between
+ Tutor[1] role tutor
+ Reserva[*] role reservas
+end
+association EstudianteReserva between
+ Estudiante[1] role estudiante
+ Reserva[*] role reservas
+end
+association TutorDisponibilidad between
+ Tutor[1] role tutor
+ Disponibilidad[*] role disponibilidades
+end
+-- =========================
+-- OCL CONSTRAINTS
+-- =========================
+constraints
+-- (1) Estado válido de Reserva
+context Reserva
+ inv EstadoValido:
+ Set{ EstadoReserva::CREADA,
+ EstadoReserva::CANCELADA,
+ EstadoReserva::CONFIRMADA,
+ EstadoReserva::EXPIRADA }->includes(self.estado)
+-- (2) Reserva siempre tiene tutor y estudiante
+context Reserva
+ inv TieneTutorYEstudiante:
+ not self.tutor.oclIsUndefined() and not self.estudiante.oclIsUndefined()
+-- (3) No doble reserva activa para el mismo tutor en la misma fecha/hora
+context Tutor
+ inv NoDobleReservaMismoHorario:
+ self.reservas
+ ->select(r | r.estado <> EstadoReserva::CANCELADA and r.estado <> EstadoReserva::EXPIRADA)
+ ->isUnique(r | r.fechaHora)

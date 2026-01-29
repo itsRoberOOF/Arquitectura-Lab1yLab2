@@ -1,0 +1,118 @@
+model Tutorias
+enum EstadoReserva { CREADA, CONFIRMADA, CANCELADA, EXPIRADA }
+enum EstadoDisponibilidad { LIBRE, OCUPADA }
+enum EstadoPago { PENDIENTE, PAGADO, REEMBOLSADO }
+class Tutor
+ attributes
+ nombre : String
+ especialidad : String
+end
+class Estudiante
+ attributes
+ nombre : String
+ carnet : String
+end
+class Curso
+ attributes
+ codigo : String
+ nombre : String
+end
+class Tema
+ attributes
+ nombre : String
+end
+class Ubicacion
+ attributes
+ tipo : String
+ enlace : String
+end
+class Disponibilidad
+ attributes
+ fechaHora : String
+ estado : EstadoDisponibilidad
+end
+class Reserva
+ attributes
+ fechaHora : String
+ estado : EstadoReserva
+end
+class Pago
+ attributes
+ monto : Real
+ estado : EstadoPago
+end
+class Notificacion
+ attributes
+ canal : String
+ mensaje : String
+end
+class ReservaService
+ operations
+ crearReserva(estudiante : Estudiante, tutor : Tutor, fechaHora : String) : Reserva
+ cancelarReserva(reserva : Reserva)
+end
+association TutorReserva between
+ Tutor[1] role tutor
+ Reserva[*] role reservas
+end
+association EstudianteReserva between
+ Estudiante[1] role estudiante
+ Reserva[*] role reservas
+end
+association TutorDisponibilidad between
+ Tutor[1] role tutor
+ Disponibilidad[*] role disponibilidades
+end
+association ReservaCurso between
+ Reserva[0..1] role reserva
+ Curso[0..1] role curso
+end
+association CursoTema between
+ Curso[1] role curso
+ Tema[*] role temas
+end
+association ReservaUbicacion between
+ Reserva[1] role reserva
+ Ubicacion[1] role ubicacion
+end
+association ReservaPago between
+ Reserva[0..1] role reserva
+ Pago[0..1] role pago
+end
+association ReservaNotificacion between
+ Reserva[1] role reserva
+ Notificacion[*] role notificaciones
+end
+constraints
+context Reserva
+ inv EstadoValido:
+ Set{ EstadoReserva::CREADA,
+ EstadoReserva::CONFIRMADA,
+ EstadoReserva::CANCELADA,
+ EstadoReserva::EXPIRADA }->includes(self.estado)
+context Reserva
+ inv TieneTutorYEstudiante:
+ not self.tutor.oclIsUndefined() and not self.estudiante.oclIsUndefined()
+context Tutor
+ inv NoDobleReservaActivaMismoHorario:
+ self.reservas
+ ->select(r | r.estado <> EstadoReserva::CANCELADA and r.estado <> EstadoReserva::EXPIRADA)
+ ->isUnique(r | r.fechaHora)
+context ReservaService::crearReserva(estudiante : Estudiante, tutor : Tutor, fechaHora : String) : Reserva
+ pre CrearReservaValida:
+ tutor.disponibilidades->exists(d |
+ d.fechaHora = fechaHora and d.estado = EstadoDisponibilidad::LIBRE
+ )
+ and
+ tutor.reservas->select(r |
+ r.estado <> EstadoReserva::CANCELADA and r.estado <> EstadoReserva::EXPIRADA
+ )->forAll(r | r.fechaHora <> fechaHora)
+context ReservaService::cancelarReserva(reserva : Reserva)
+ pre CancelarSoloSiActiva:
+ reserva.estado = EstadoReserva::CREADA or reserva.estado = EstadoReserva::CONFIRMADA
+context ReservaService::crearReserva(estudiante : Estudiante, tutor : Tutor, fechaHora : String) : Reserva
+ post ReservaQuedaCreada:
+ result.estado = EstadoReserva::CREADA and
+ result.fechaHora = fechaHora and
+ result.tutor = tutor and
+ result.estudiante = estudiante
