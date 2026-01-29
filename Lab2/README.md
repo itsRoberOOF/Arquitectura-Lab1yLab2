@@ -151,13 +151,13 @@ Antes de iniciar, abre USE desde la carpeta donde lo tengas instalado.
 
 ### ▶️ 1. Ejecutar Cars.use (Ejercicio introductorio)
 
-**Cargar el modelo:**
+**Cargar el modelo (o cargarlo desde la aplicación):**
 
     use Cars.use
 
 **Ejecutar el script:**
 
-    open Cars.cmd
+    open scripts/Cars.cmd
 
 **Validar invariantes:**
 
@@ -173,13 +173,13 @@ Antes de iniciar, abre USE desde la carpeta donde lo tengas instalado.
 
 ### ▶️ 2. Ejecutar University.use (Association Class)
 
-**Cargar el modelo:**
+**Cargar el modelo (o cargarlo desde la aplicación):**
 
     use University.use
 
 **Ejecutar el script:**
 
-    open University.cmd
+    open scripts/University.cmd
 
 **Validar invariantes:**
 
@@ -194,13 +194,13 @@ Antes de iniciar, abre USE desde la carpeta donde lo tengas instalado.
 
 ### ▶️ 3. Ejecutar Reservas.use (Modelo simplificado)
 
-**Cargar el modelo:**
+**Cargar el modelo (o cargarlo desde la aplicación):**
 
     use Reservas.use
 
 **Ejecutar el script:**
 
-    open Reservas.cmd
+    open scripts/Reservas.cmd
 
 **Validar invariantes:**
 
@@ -222,11 +222,15 @@ Antes de iniciar, abre USE desde la carpeta donde lo tengas instalado.
 
 ### ▶️ 4. Ejecutar Tutorias.use (Modelo completo)
 
-**Cargar el modelo:**
+**Cargar el modelo (o cargarlo desde la aplicación):**
 
     use Tutorias.use
 
-**Validar modelo base:**
+**Ejecutar el script:**
+
+    open scripts/Tutorias.cmd
+
+**Validar modelo:**
 
     check
 
