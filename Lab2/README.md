@@ -239,8 +239,9 @@ Antes de iniciar, abre USE desde la carpeta donde lo tengas instalado.
     check
 
 **Corrección manual**
-!set r2.estado := #CANCELADA
-check
+
+    !set r2.estado := #CANCELADA
+    check
 
 ---
 

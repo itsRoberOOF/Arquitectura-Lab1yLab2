@@ -66,19 +66,21 @@ pip install -r requirements.txt
 Ejecutar las pruebas (opción recomendada):
 
 ```bash
-PYTHONPATH=. pytest -q
+python -m pytest tests/test_reservas.py -v
 ```
 
 Levantar el servidor FastAPI:
 
 ```bash
-PYTHONPATH=. uvicorn app.api.main:app --reload
+python -m uvicorn app.api.main:app --reload
 ```
 
 Probar el endpoint de creación de reservas:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/reservas?estudiante_id=e1&tutor_id=t1&fecha_hora=2026-01-25T10:30:00"
+Invoke-WebRequest `
+  -Method POST `
+  -Uri "http://127.0.0.1:8000/reservas?estudiante_id=e1&tutor_id=t1&fecha_hora=2026-01-25T10:30:00"
 ```
 
 ### 🎯 Resultado esperado
